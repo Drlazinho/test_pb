@@ -10,7 +10,7 @@ import {
   useColorScheme,
 } from "@mui/material";
 import { useState } from "react";
-import SettingsIcon from '@mui/icons-material/settings';
+import SettingsIcon from "@mui/icons-material/settings";
 
 export function ThemeContextModal() {
   const { mode, setMode } = useColorScheme();
@@ -40,18 +40,21 @@ export function ThemeContextModal() {
 
   return (
     <>
-<IconButton onClick={handleOpen} color="inherit" aria-label="Configurações de tema">
+      <IconButton
+        onClick={handleOpen}
+        color="inherit"
+        aria-label="Configurações de tema"
+      >
         <SettingsIcon />
-      </IconButton>      <Modal
+      </IconButton>{" "}
+      <Modal
         keepMounted
         open={open}
         onClose={handleOpen}
         aria-labelledby="modal-theme"
         aria-describedby="modal-theme"
       >
-        <FormControl
-          sx={styleModal}
-        >
+        <FormControl sx={styleModal}>
           <FormLabel id="theme-toggle" sx={{ textAlign: "center" }}>
             Tema
           </FormLabel>

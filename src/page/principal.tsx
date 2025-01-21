@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCardsPokemon } from "../api/get_cards_pokemon";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Header } from "../components/header";
 import { InputSearch } from "../components/input-search";
@@ -67,7 +67,7 @@ export function Principal() {
             {pokemonsList.map((item, index) => {
               return (
                 <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                  <PokemonCard image={item.images.small} name={item.name} rarity={item.rarity} types={item.types}/>
+                  <PokemonCard image={item.images.small} name={item.name} rarity={item.rarity} types={item.types} cardItem={item}/>
                 </Grid>
               );
             })}

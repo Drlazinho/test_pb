@@ -7,15 +7,23 @@ import {
   Chip,
   Typography,
 } from "@mui/material";
+import { PokemonCardProps } from '../types/pokemon-card'
+import { useState } from 'react'
+import ModalPokemonDetail from './modal-pokemon-detail'
 
-interface PokemonCardProps {
-  name?: string;
-  types?: string[];
-  rarity?: string;
-  image?: string;
+interface ICardProps {
+  cardItem?: PokemonCardProps | undefined
+  name?: string
+  types?: string[]
+  rarity?: string
+  image?: string
 }
 
-function TypesList({ types }: { types: string }) {
+export interface TypesListProps {
+  types: string;
+}
+
+function TypesList({ types }: TypesListProps) {
   switch (types) {
     case "Colorless":
       return (
@@ -132,14 +140,27 @@ export function PokemonCard({
   types = [""],
   rarity = "N/A",
   image = "false",
-}: PokemonCardProps) {
+  cardItem = undefined,
+}: ICardProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
+
   return (
     <Card
       sx={{
         width: "100%",
         border: "2px solid #D4D7DE",
         borderRadius: 2,
+        cursor: "pointer",
+        overflow: "hidden",
+        "&:hover": {
+          border: "2px solid red",
+          transition: 'all 0.2s ease-in-out',
+        }
       }}
+      onClick={handleOpen}
     >
       <CardMedia
         component={"img"}
@@ -175,10 +196,11 @@ export function PokemonCard({
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ display: "flex", alignItems: "center" }}
+          sx={{ display: "flex", alignItems: "center", }}
         >
           {rarity}
         </Typography>
+        <ModalPokemonDetail openModal={open} handleOpen={handleOpen} infoPokemon={cardItem}/>
         {/* </Grid> */}
       </CardContent>
     </Card>
