@@ -164,7 +164,7 @@ export default function ModalPokemonDetail({
                 {infoPokemon?.name} | {infoPokemon?.supertype} -{" "}
                 {infoPokemon?.subtypes}
               </Typography>
-              {infoPokemon?.types.map((i) => (
+              {infoPokemon?.types?.map((i) => (
                 <TypesList key={i} types={i} />
               ))}
             </Box>

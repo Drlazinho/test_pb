@@ -1,17 +1,27 @@
-import { InputBase, Paper, IconButton } from "@mui/material";
+import {
+  InputBase,
+  Paper,
+  InputBaseProps,
+  IconButton,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { Close } from '@mui/icons-material'
 
-export function InputSearch() {
+type InputProps = InputBaseProps & {
+  onClear: () => void
+}
+
+export function InputSearch({ placeholder, onClear, value, ...rest }: InputProps) {
   return (
     <Paper
       component="form"
       sx={{
         display: "flex",
         alignItems: "center",
-        width: 400,
-        padding: "2px 4px",
-        borderRadius: "25px", 
-        boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)", 
+        justifyContent: "space-between",
+        padding: "6px 4px 6px 10px",
+        borderRadius: "25px",
+        boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)",
         border: "1px solid #ddd",
       }}
     >
@@ -21,12 +31,14 @@ export function InputSearch() {
           marginLeft: 1,
           padding: 1,
         }}
-        placeholder="Pesquise um pokemon"
-        inputProps={{ "aria-label": "pesquise um pokemon" }}
+        value={value}
+        {...rest}
+        placeholder={placeholder}
       />
-      <IconButton type="submit" sx={{ padding: 1 }} aria-label="search">
-        <SearchIcon />
+
+      <IconButton type='button' sx={{ padding: 1 }} onClick={onClear}>
+        {value ? <Close /> : <SearchIcon />}
       </IconButton>
     </Paper>
   );
-};
+}
