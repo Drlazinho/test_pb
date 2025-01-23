@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCardsPokemon } from "../api/get_cards_pokemon";
+import { FilterPokemonProps, getCardsPokemon } from "../api/get_cards_pokemon";
 import { Box, Button, CircularProgress, FormControl } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Header } from "../components/header";
@@ -10,11 +10,15 @@ import { PokemonCardProps } from "../types/pokemon-card";
 import { getTypes } from "../api/get_types";
 import { SelectField } from "../components/select-field";
 import { Delete } from "@mui/icons-material";
+import { getRarities } from "../api/get_rarities";
+import { getSupertypes } from "../api/get_supertypes";
 
 export function Principal() {
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<FilterPokemonProps>({
     type: "",
     name: "",
+    rarity: "",
+    supertype: "",
   });
 
   const { data: pokemonApiData, isLoading } = useQuery({
@@ -25,6 +29,16 @@ export function Principal() {
   const { data: typeApiData } = useQuery({
     queryKey: ["types_pokemon"],
     queryFn: () => getTypes().then((res) => res.data),
+  });
+
+  const { data: raritiesApiData } = useQuery({
+    queryKey: ["rarities_pokemon"],
+    queryFn: () => getRarities().then((res) => res.data),
+  });
+
+  const { data: supertypesApiData } = useQuery({
+    queryKey: ["supertypes_pokemon"],
+    queryFn: () => getSupertypes().then((res) => res.data),
   });
 
   const pokemonsList = pokemonApiData ? pokemonApiData.data : [];
@@ -43,6 +57,15 @@ export function Principal() {
     setFilter({
       type: "",
       name: "",
+      rarity: "",
+      supertype: "",
+    });
+  };
+
+  const handleClearInput = () => {
+    setFilter({
+      name: "",
+      ...filter,
     });
   };
 
@@ -65,7 +88,7 @@ export function Principal() {
           sx={{
             display: "flex",
             justifyContent: "flex-start",
-            flexDirection: {xs: "column", md: "row"},
+            flexDirection: { xs: "column", md: "row" },
             gap: 2,
             margin: "5rem 2rem 3rem",
           }}
@@ -75,21 +98,46 @@ export function Principal() {
               minWidth: 200,
               maxWidth: "100%",
             }}
-            placeholder="Pesquise o Pokemon"
+            placeholder="Search Pokemon"
             name="name"
             value={filter.name}
             onChange={handleChange}
-            onClear={handleClear}
+            onClear={handleClearInput}
           />
           <SelectField
             sx={{
               minWidth: 200,
               maxWidth: "100%",
             }}
-            label={"Selecione o Tipo"}
+            label={"Select Type"}
             data={typeApiData}
             value={filter.type}
+            useIcon
             name="type"
+            variant="outlined"
+            onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
+          />
+          <SelectField
+            sx={{
+              minWidth: 200,
+              maxWidth: "100%",
+            }}
+            label={"Select Rarities"}
+            data={raritiesApiData}
+            value={filter.rarity}
+            name="rarity"
+            variant="outlined"
+            onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
+          />
+          <SelectField
+            sx={{
+              minWidth: 200,
+              maxWidth: "100%",
+            }}
+            label={"Select Supertypes"}
+            data={supertypesApiData}
+            value={filter.supertype}
+            name="supertype"
             variant="outlined"
             onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
           />

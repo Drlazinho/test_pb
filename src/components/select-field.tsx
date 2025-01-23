@@ -3,14 +3,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { BaseSelectProps, SelectChangeEvent } from "@mui/material/Select";
 import { Paper } from '@mui/material'
+import { IconTypesList } from './icon-types-list'
 
 type SelectFieldProps = BaseSelectProps & {
   label: string;
   data?: string[];
+  useIcon?: boolean;
   onChange: (event: SelectChangeEvent) => void;
 };
 
-export function SelectField({ label, data, ...rest }: SelectFieldProps) {
+export function SelectField({ label, data, useIcon, ...rest }: SelectFieldProps) {
   const safeData = Array.isArray(data) ? data : []; 
 
   return (
@@ -38,7 +40,9 @@ export function SelectField({ label, data, ...rest }: SelectFieldProps) {
           <MenuItem value={''}>Nenhum</MenuItem>
           {safeData?.map((i) => (
             <MenuItem key={i} value={i}>
-              {i}
+              {useIcon && <IconTypesList types={i} size={20}/>} <p style={{
+                marginLeft: 10
+              }}>{i}</p>
             </MenuItem>
           ))}
         </Select>

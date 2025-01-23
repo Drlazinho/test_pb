@@ -3,112 +3,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { PokemonCardProps } from "../types/pokemon-card";
-import { Avatar, CardMedia, Divider } from "@mui/material";
+import { CardMedia, Divider } from "@mui/material";
+import { IconTypesList } from './icon-types-list'
 
 interface IModalProps {
   openModal: boolean;
   infoPokemon?: PokemonCardProps;
   handleOpen: () => void;
-}
-
-export interface TypesListProps {
-  types: string;
-  size?: number;
-}
-
-export function TypesList({ types, size = 30 }: TypesListProps) {
-  switch (types) {
-    case "Colorless":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/colorless.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Darkness":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/darkness.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Dragon":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/dragon.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Fairy":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/fairy.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Fighting":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/fighting.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Fire":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/fire.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Grass":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/grass.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Lightning":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/lightning.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Metal":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/metal.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Psychic":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/psychic.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    case "Water":
-      return (
-        <Avatar
-          alt={types}
-          src="/assets/icons/water.png"
-          sx={{ width: size, height: size }}
-        />
-      );
-    default:
-      return null;
-  }
 }
 
 export default function ModalPokemonDetail({
@@ -165,7 +66,7 @@ export default function ModalPokemonDetail({
                 {infoPokemon?.subtypes}
               </Typography>
               {infoPokemon?.types?.map((i) => (
-                <TypesList key={i} types={i} />
+                <IconTypesList key={i} types={i} />
               ))}
             </Box>
 
@@ -231,7 +132,7 @@ export default function ModalPokemonDetail({
                         gap: 2,
                       }}
                     >
-                      <TypesList types={i.type} />
+                      <IconTypesList types={i.type} />
                       <Typography>{i.value}</Typography>
                     </Box>
                   ))}
@@ -257,7 +158,7 @@ export default function ModalPokemonDetail({
                         gap: 2,
                       }}
                     >
-                      <TypesList types={i.type} />
+                      <IconTypesList types={i.type} />
                       <Typography>{i.value}</Typography>
                     </Box>
                   ))}
@@ -283,7 +184,7 @@ export default function ModalPokemonDetail({
                     }}
                   >
                     {infoPokemon?.retreatCost?.map((i) => (
-                      <TypesList types={i} />
+                      <IconTypesList types={i} />
                     ))}
                   </Box>
                 </Box>
@@ -340,7 +241,7 @@ export default function ModalPokemonDetail({
                       }}
                     >
                       {i.cost.map((a) => (
-                        <TypesList types={a} size={20} />
+                        <IconTypesList types={a} size={20} />
                       ))}
                       <Typography variant="subtitle1" sx={{
                         fontWeight: 'bold',
