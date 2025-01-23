@@ -90,7 +90,7 @@ export function Principal() {
             justifyContent: "flex-start",
             flexDirection: { xs: "column", md: "row" },
             gap: 2,
-            margin: "5rem 2rem 3rem",
+            margin: {xs: "2rem 2rem 1.5rem",md: "5rem 2rem 3rem"},
           }}
         >
           <InputSearch

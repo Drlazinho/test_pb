@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { PokemonCardProps } from "../types/pokemon-card";
 import { CardMedia, Divider } from "@mui/material";
-import { IconTypesList } from './icon-types-list'
+import { IconTypesList } from "./icon-types-list";
 
 interface IModalProps {
   openModal: boolean;
@@ -31,12 +31,15 @@ export default function ModalPokemonDetail({
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
+            width: { xs: "90%", sx: "80%" },
             maxWidth: "1000px",
+            height: { xs: "80%" },
             bgcolor: "background.paper",
             border: "2px solid #000",
             color: "text.primary",
             boxShadow: 24,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {/* Header */}
@@ -49,6 +52,7 @@ export default function ModalPokemonDetail({
               textAlign: "center",
               paddingBlock: 2,
               paddingInline: 4,
+              marginBottom: {xs: "4px", md: 0},
               fontWeight: "bold",
               background: "#f00",
             }}
@@ -61,7 +65,13 @@ export default function ModalPokemonDetail({
                 flex: 1,
               }}
             >
-              <Typography variant="h6" component="h2">
+              <Typography
+                component="h2"
+                sx={{
+                  typography: { xs: "body1", md: "h6" },
+                }}
+              >
+                {" "}
                 {infoPokemon?.name} | {infoPokemon?.supertype} -{" "}
                 {infoPokemon?.subtypes}
               </Typography>
@@ -77,22 +87,24 @@ export default function ModalPokemonDetail({
                 color: "#ff0",
               }}
             >
-              {infoPokemon?.hp} HP <br /> { 'Lv. ' + infoPokemon?.level || ''}
+              {infoPokemon?.hp} HP <br /> {"Lv. " + infoPokemon?.level || ""}
             </Typography>
           </Box>
 
           <Box
             sx={{
               display: "flex",
+              flex: 1,
               justifyContent: "space-between",
+              alignItems: "center",
               flexDirection: { xs: "column", md: "row" },
             }}
           >
             <CardMedia
               component={"img"}
               sx={{
-                height: 500,
-                width: 380,
+                height: { xs: 280, md: 500 },
+                width: { xs: 200, md: 380 },
                 bgcolor: "lightgray",
                 objectFit: "contain",
               }}
@@ -109,6 +121,7 @@ export default function ModalPokemonDetail({
                 sx={{
                   display: "flex",
                   justifyContent: "center",
+                  flexWrap: "wrap",
                   gap: 2,
                 }}
               >
@@ -200,9 +213,11 @@ export default function ModalPokemonDetail({
               </Typography>
               {infoPokemon?.abilities?.map((i) => (
                 <Box>
-                  <Typography  sx={{
-                        fontWeight: 'bold',
-                      }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "bold",
+                    }}
+                  >
                     {i.type} | {i.name}
                   </Typography>
                   <Typography
@@ -243,9 +258,14 @@ export default function ModalPokemonDetail({
                       {i.cost.map((a) => (
                         <IconTypesList types={a} size={20} />
                       ))}
-                      <Typography variant="subtitle1" sx={{
-                        fontWeight: 'bold',
-                      }}>{i.name}</Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {i.name}
+                      </Typography>
                     </Box>
                     <Typography
                       sx={{
@@ -259,12 +279,18 @@ export default function ModalPokemonDetail({
                   <Typography>{i.text}</Typography>
                 </Box>
               ))}
-                 <Divider sx={{
-                marginBlock: 2
-                 }}/>
-                 <Typography>Rarity: <span style={{fontWeight: 'bold'}}>{infoPokemon?.rarity}</span></Typography>
+              <Divider
+                sx={{
+                  marginBlock: 2,
+                }}
+              />
+              <Typography>
+                Rarity:{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  {infoPokemon?.rarity}
+                </span>
+              </Typography>
             </Box>
-         
           </Box>
 
           <Button
