@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { FilterPokemonProps, getCardsPokemon } from "../api/get_cards_pokemon";
-import { Box, Button, CircularProgress, FormControl } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Header } from "../components/header";
 import { InputSearch } from "../components/input-search";
@@ -155,10 +155,26 @@ export function Principal() {
             variant="outlined"
             onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
           />
+          <SelectField
+            sx={{
+              minWidth: 40,
+              maxWidth: "100%",
+            }}
+            label={"Select Item/page"}
+            data={[10, 20, 40, 100]}
+            value={filter.pageSize}
+            name="pageSize"
+            variant="outlined"
+            onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
+          />
           <Button type="reset" onClick={handleClear} endIcon={<Delete />}>
             Limpar
           </Button>
         </FormControl>
+
+        <Typography textAlign={'center'} sx={{
+          marginBottom: 2
+        }}>Total: {pokemonApiData?.totalCount} Itens</Typography>
 
         <Box sx={{ width: "100%", paddingInline: 4 }}>
           {isLoading && (
@@ -200,7 +216,7 @@ export function Principal() {
           marginBlock: 2
         }}>
 
-        <PaginationRounded count={pokemonApiData?.totalCount / pokemonApiData?.pageSize} handleChangePage={handleChangePage}/>
+        <PaginationRounded count={Math.ceil(pokemonApiData?.totalCount / pokemonApiData?.pageSize)} handleChangePage={handleChangePage}/>
         </Box>
         
   

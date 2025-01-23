@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 type SelectFieldProps = BaseSelectProps & {
   label: string;
-  data?: string[];
+  data?: string[] | number[];
   useIcon?: boolean;
   value?: string | number | undefined;
   onChange: (event: SelectChangeEvent) => void;

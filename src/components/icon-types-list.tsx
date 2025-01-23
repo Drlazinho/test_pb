@@ -1,7 +1,7 @@
 import { Avatar, Chip } from "@mui/material";
 
 export interface TypesListProps {
-  types: string;
+  types: string | number;
   size?: number;
   useChip?: boolean;
 }
@@ -34,7 +34,7 @@ export function IconTypesList({ types, size = 30, useChip = false }: TypesListPr
   if (useChip) {
     return (
       <Chip
-        avatar={<Avatar alt={types} src={icon} />}
+        avatar={<Avatar alt={types.toString()} src={icon} />}
         label={types}
         variant="outlined"
         sx={{ bgcolor: bgColor, color: textColor }}
@@ -42,5 +42,5 @@ export function IconTypesList({ types, size = 30, useChip = false }: TypesListPr
     );
   }
 
-  return <Avatar alt={types} src={icon} sx={{ width: size, height: size }} />;
+  return <Avatar alt={types.toString()} src={icon} sx={{ width: size, height: size }} />;
 }
