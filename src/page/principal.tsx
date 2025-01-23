@@ -12,6 +12,7 @@ import { SelectField } from "../components/select-field";
 import { Delete } from "@mui/icons-material";
 import { getRarities } from "../api/get_rarities";
 import { getSupertypes } from "../api/get_supertypes";
+import PaginationRounded from '../components/pagination-rounded'
 
 export function Principal() {
   const [filter, setFilter] = useState<FilterPokemonProps>({
@@ -19,9 +20,11 @@ export function Principal() {
     name: "",
     rarity: "",
     supertype: "",
+    page: 1,
+    pageSize: 20,
   });
 
-  const { data: pokemonApiData, isLoading } = useQuery({
+  const { data: pokemonApiData, isLoading  } = useQuery({
     queryKey: ["cards_pokemon", filter],
     queryFn: () => getCardsPokemon(filter).then((cards) => cards),
   });
@@ -55,10 +58,12 @@ export function Principal() {
 
   const handleClear = () => {
     setFilter({
+      ...filter,
       types: "",
       name: "",
       rarity: "",
       supertype: "",
+      page: 1,
     });
   };
 
@@ -66,9 +71,18 @@ export function Principal() {
     setFilter({
       ...filter,
       name: "",
+      page: 1,
     });
   };
 
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setFilter({
+      ...filter,
+      page: value
+    })
+  };
+
+  console.log(pokemonApiData?.page)
   return (
     <Box
       sx={{ width: "100vw", minHeight: "100vh", bgcolor: "background.default" }}
@@ -180,6 +194,16 @@ export function Principal() {
             })}
           </Grid>
         </Box>
+        <Box sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginBlock: 2
+        }}>
+
+        <PaginationRounded count={pokemonApiData?.totalCount / pokemonApiData?.pageSize} handleChangePage={handleChangePage}/>
+        </Box>
+        
+  
       </Grid>
     </Box>
   );
