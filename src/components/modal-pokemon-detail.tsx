@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import { PokemonCardProps } from "../types/pokemon-card";
 import { CardMedia, Divider } from "@mui/material";
 import { IconTypesList } from "./icon-types-list";
+import { motion } from "motion/react";
 
 interface IModalProps {
   openModal: boolean;
@@ -26,10 +27,16 @@ export default function ModalPokemonDetail({
         aria-describedby="modal-modal-description"
       >
         <Box
+        component={motion.div}
+        animate={{ scale: [0, 1.02, 1] }}
+        transition={{
+          duration: 0.6,
+          ease: "easeInOut", 
+        }}
           sx={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
+            top: "10%",
+            left:{xs: "5%", md: "6%", lg: "15%", xl: "22%"},
             transform: "translate(-50%, -50%)",
             width: { xs: "90%", sx: "80%" },
             maxWidth: "1000px",

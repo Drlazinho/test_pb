@@ -12,11 +12,11 @@ import { SelectField } from "../components/select-field";
 import { Delete } from "@mui/icons-material";
 import { getRarities } from "../api/get_rarities";
 import { getSupertypes } from "../api/get_supertypes";
-import PaginationRounded from '../components/pagination-rounded'
-import pokebola from "./../assets/pokebola.png"
-import pikachuLoading from "./../assets/pikachu.webp"
-import pikachuError from "./../assets/pikachuError.gif"
-
+import PaginationRounded from "../components/pagination-rounded";
+import pokebola from "./../assets/pokebola.png";
+import pikachuLoading from "./../assets/pikachu.webp";
+import pikachuError from "./../assets/pikachuError.gif";
+import { motion } from "motion/react";
 export function Principal() {
   const [filter, setFilter] = useState<FilterPokemonProps>({
     types: "",
@@ -27,7 +27,11 @@ export function Principal() {
     pageSize: 20,
   });
 
-  const { data: pokemonApiData, isLoading, isError  } = useQuery({
+  const {
+    data: pokemonApiData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["cards_pokemon", filter],
     queryFn: () => getCardsPokemon(filter).then((cards) => cards),
   });
@@ -78,12 +82,15 @@ export function Principal() {
     });
   };
 
-  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChangePage = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
     event.preventDefault();
     setFilter({
       ...filter,
-      page: value
-    })
+      page: value,
+    });
   };
 
   return (
@@ -107,7 +114,7 @@ export function Principal() {
             justifyContent: "flex-start",
             flexDirection: { xs: "column", md: "row" },
             gap: 2,
-            margin: {xs: "2rem 2rem 1.5rem",md: "5rem 2rem 3rem"},
+            margin: { xs: "2rem 2rem 1.5rem", md: "5rem 2rem 3rem" },
           }}
         >
           <InputSearch
@@ -175,18 +182,20 @@ export function Principal() {
           </Button>
         </FormControl>
 
-            <Box sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: 2,
-              gap: 1
-            }}>
-
-        <Typography textAlign={'center'}>Total: {pokemonApiData?.totalCount ?? 0} Itens </Typography>
-         <img src={pokebola} width={20} alt="" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 2,
+            gap: 1,
+          }}
+        >
+          <Typography textAlign={"center"}>
+            Total: {pokemonApiData?.totalCount ?? 0} Itens{" "}
+          </Typography>
+          <img src={pokebola} width={20} alt="" />
         </Box>
-       
 
         <Box sx={{ width: "100%", paddingInline: 4 }}>
           {isLoading && (
@@ -203,8 +212,10 @@ export function Principal() {
                 padding: 2,
               }}
             >
-              <img src={pikachuLoading}/>
-              <Typography variant='h5' textAlign={'center'}>Searching Pokémons...</Typography>
+              <img src={pikachuLoading} />
+              <Typography variant="h5" textAlign={"center"}>
+                Searching Pokémons...
+              </Typography>
             </Box>
           )}
           {isError && (
@@ -221,38 +232,59 @@ export function Principal() {
                 padding: 2,
               }}
             >
-              <img src={pikachuError}/>
-              <Typography variant='h5' textAlign={'center'} color='error'>Error - Um dos pokémons desapereceu enquanto realizavamos a contagem. <br />Tente novamente mais tarde.</Typography>
+              <img src={pikachuError} />
+              <Typography variant="h5" textAlign={"center"} color="error">
+                Error - Um dos pokémons desapereceu enquanto realizavamos a
+                contagem. <br />
+                Tente novamente mais tarde.
+              </Typography>
             </Box>
           )}
 
           <Grid container columnSpacing={4} rowSpacing={3}>
-            {pokemonsList?.map((item: PokemonCardProps) => {
+            {pokemonsList?.map((item: PokemonCardProps, index: number) => {
               return (
-                <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                  <PokemonCard
-                    image={item.images.small}
-                    name={item.name}
-                    rarity={item.rarity}
-                    types={item.types}
-                    cardItem={item}
-                    hp={item.hp}
-                  />
+                <Grid
+                  key={item.id}
+                  size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                  sx={{ overflow: "hidden" }}
+                >
+                  <motion.div
+                    animate={{ scale: [0.25, 1.02, 1] }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      ease: "easeInOut", 
+                    }}
+                  >
+                    <PokemonCard
+                      image={item.images.small}
+                      name={item.name}
+                      rarity={item.rarity}
+                      types={item.types}
+                      cardItem={item}
+                      hp={item.hp}
+                    />
+                  </motion.div>
                 </Grid>
               );
             })}
           </Grid>
         </Box>
-        <Box sx={{
-          display: "flex",
-          justifyContent: "center",
-          marginBlock: 2
-        }}>
-
-        <PaginationRounded count={Math.ceil(pokemonApiData?.totalCount / pokemonApiData?.pageSize)} handleChangePage={handleChangePage}/>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginBlock: 2,
+          }}
+        >
+          <PaginationRounded
+            count={Math.ceil(
+              pokemonApiData?.totalCount / pokemonApiData?.pageSize
+            )}
+            handleChangePage={handleChangePage}
+          />
         </Box>
-        
-  
       </Grid>
     </Box>
   );
