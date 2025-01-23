@@ -15,6 +15,7 @@ import { getSupertypes } from "../api/get_supertypes";
 import PaginationRounded from '../components/pagination-rounded'
 import pokebola from "./../assets/pokebola.png"
 import pikachuLoading from "./../assets/pikachu.webp"
+import pikachuError from "./../assets/pikachuError.gif"
 
 export function Principal() {
   const [filter, setFilter] = useState<FilterPokemonProps>({
@@ -26,7 +27,7 @@ export function Principal() {
     pageSize: 20,
   });
 
-  const { data: pokemonApiData, isLoading  } = useQuery({
+  const { data: pokemonApiData, isLoading, isError  } = useQuery({
     queryKey: ["cards_pokemon", filter],
     queryFn: () => getCardsPokemon(filter).then((cards) => cards),
   });
@@ -84,7 +85,6 @@ export function Principal() {
     })
   };
 
-  console.log(pokemonApiData?.page)
   return (
     <Box
       sx={{ width: "100vw", minHeight: "100vh", bgcolor: "background.default" }}
@@ -204,6 +204,24 @@ export function Principal() {
             >
               <img src={pikachuLoading}/>
               <Typography variant='h5' textAlign={'center'}>Searching Pokémons...</Typography>
+            </Box>
+          )}
+          {isError && (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                padding: 2,
+              }}
+            >
+              <img src={pikachuError}/>
+              <Typography variant='h5' textAlign={'center'} color='error'>Error - Um dos pokémons desapereceu enquanto realizavamos a contagem. <br />Tente novamente mais tarde.</Typography>
             </Box>
           )}
 
