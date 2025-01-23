@@ -1,6 +1,6 @@
-# Test Probrain - Pokemon TCG
+# Pokemon TCG
 
-Aplicação desenvolvida para o Desafio Frontend - ProBrain.
+Aplicação desenvolvida para um Desafio de Frontend.
 
 ### Requisitos da Aplicação.
 - [x] Listagem de Pokémon
