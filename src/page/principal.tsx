@@ -79,6 +79,7 @@ export function Principal() {
   };
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    event.preventDefault();
     setFilter({
       ...filter,
       page: value
@@ -182,7 +183,7 @@ export function Principal() {
               gap: 1
             }}>
 
-        <Typography textAlign={'center'}>Total: {pokemonApiData?.totalCount} Itens </Typography>
+        <Typography textAlign={'center'}>Total: {pokemonApiData?.totalCount ?? 0} Itens </Typography>
          <img src={pokebola} width={20} alt="" />
         </Box>
        
