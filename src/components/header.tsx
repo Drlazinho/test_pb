@@ -28,7 +28,7 @@ export function Header() {
     >
       <img src={logo} alt="Pokémon Logo" style={{ height: "4rem" }} />
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <Link variant="body1" href="www.google.com.br" underline="hover">
+        <Link variant="body1" href="https://github.com/Drlazinho/test_pb" underline="hover">
           <Typography
             sx={{
               display: { xs: "none", md: "block" },
