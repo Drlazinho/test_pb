@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { FilterPokemonProps, getCardsPokemon } from "../api/get_cards_pokemon";
-import { Box, Button, CircularProgress, FormControl, Typography } from "@mui/material";
+import { Box, Button, FormControl, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Header } from "../components/header";
 import { InputSearch } from "../components/input-search";
@@ -13,6 +13,8 @@ import { Delete } from "@mui/icons-material";
 import { getRarities } from "../api/get_rarities";
 import { getSupertypes } from "../api/get_supertypes";
 import PaginationRounded from '../components/pagination-rounded'
+import pokebola from "./../assets/pokebola.png"
+import pikachuLoading from "./../assets/pikachu.webp"
 
 export function Principal() {
   const [filter, setFilter] = useState<FilterPokemonProps>({
@@ -112,7 +114,7 @@ export function Principal() {
               minWidth: 200,
               maxWidth: "100%",
             }}
-            placeholder="Search Pokemon"
+            placeholder="Search Pokémon"
             name="name"
             value={filter.name}
             onChange={handleChange}
@@ -172,9 +174,18 @@ export function Principal() {
           </Button>
         </FormControl>
 
-        <Typography textAlign={'center'} sx={{
-          marginBottom: 2
-        }}>Total: {pokemonApiData?.totalCount} Itens</Typography>
+            <Box sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 2,
+              gap: 1
+            }}>
+
+        <Typography textAlign={'center'}>Total: {pokemonApiData?.totalCount} Itens </Typography>
+         <img src={pokebola} width={20} alt="" />
+        </Box>
+       
 
         <Box sx={{ width: "100%", paddingInline: 4 }}>
           {isLoading && (
@@ -183,6 +194,7 @@ export function Principal() {
                 width: "100%",
                 height: "100%",
                 display: "flex",
+                flexDirection: "column",
                 flexGrow: 1,
                 alignItems: "center",
                 justifyContent: "center",
@@ -190,7 +202,8 @@ export function Principal() {
                 padding: 2,
               }}
             >
-              <CircularProgress />
+              <img src={pikachuLoading}/>
+              <Typography variant='h5' textAlign={'center'}>Searching Pokémons...</Typography>
             </Box>
           )}
 
@@ -204,6 +217,7 @@ export function Principal() {
                     rarity={item.rarity}
                     types={item.types}
                     cardItem={item}
+                    hp={item.hp}
                   />
                 </Grid>
               );

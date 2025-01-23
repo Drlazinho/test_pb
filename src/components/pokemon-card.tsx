@@ -16,6 +16,7 @@ interface ICardProps {
   types?: string[]
   rarity?: string
   image?: string
+  hp?: string
 }
 
 export function PokemonCard({
@@ -24,6 +25,7 @@ export function PokemonCard({
   rarity = "N/A",
   image = "false",
   cardItem = undefined,
+  hp = ""
 }: ICardProps) {
   const [open, setOpen] = useState(false);
 
@@ -63,6 +65,8 @@ export function PokemonCard({
           gap: 1,
           justifyContent: "space-between",
           padding: "8px 12px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         {/* Nome */}
@@ -83,6 +87,17 @@ export function PokemonCard({
         >
           {rarity}
         </Typography>
+        <Box sx={{
+          width: 100,
+          height: 100,
+          bgcolor: '#c07878',
+          position: 'absolute',
+          top: 70,
+          right: -40,
+          borderRadius: 25
+        }}>
+            <Typography textAlign={'center'} sx={{ position: 'absolute', left: 25, top: 10}}><span style={{ fontSize: '1.25rem', fontWeight: "bold"}}> {hp}</span> <br /> <span style={{ fontSize: '.875rem' }}>Hp.</span></Typography>
+        </Box>
         <ModalPokemonDetail openModal={open} handleOpen={handleOpen} infoPokemon={cardItem}/>
         {/* </Grid> */}
       </CardContent>
