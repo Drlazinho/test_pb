@@ -1,3 +1,4 @@
+import { Settings } from '@mui/icons-material'
 import {
   Button,
   FormControl,
@@ -10,7 +11,6 @@ import {
   useColorScheme,
 } from "@mui/material";
 import { useState } from "react";
-import SettingsIcon from "@mui/icons-material/settings";
 
 export function ThemeContextModal() {
   const { mode, setMode } = useColorScheme();
@@ -45,7 +45,7 @@ export function ThemeContextModal() {
         color="inherit"
         aria-label="Configurações de tema"
       >
-        <SettingsIcon />
+        <Settings />
       </IconButton>{" "}
       <Modal
         keepMounted
