@@ -285,6 +285,10 @@ export function Principal() {
             handleChangePage={handleChangePage}
           />
         </Box>
+
+        <Box sx={{ marginBlock: 2}}>
+          <Typography variant={'subtitle2'} textAlign={'center'}>Desenvolvido por Lázaro Pimentel - 2025</Typography>
+        </Box>
       </Grid>
     </Box>
   );
