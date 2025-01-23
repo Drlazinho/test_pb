@@ -15,7 +15,7 @@ import { getSupertypes } from "../api/get_supertypes";
 
 export function Principal() {
   const [filter, setFilter] = useState<FilterPokemonProps>({
-    type: "",
+    types: "",
     name: "",
     rarity: "",
     supertype: "",
@@ -55,7 +55,7 @@ export function Principal() {
 
   const handleClear = () => {
     setFilter({
-      type: "",
+      types: "",
       name: "",
       rarity: "",
       supertype: "",
@@ -64,8 +64,8 @@ export function Principal() {
 
   const handleClearInput = () => {
     setFilter({
-      name: "",
       ...filter,
+      name: "",
     });
   };
 
@@ -111,9 +111,9 @@ export function Principal() {
             }}
             label={"Select Type"}
             data={typeApiData}
-            value={filter.type}
+            value={filter.types}
             useIcon
-            name="type"
+            name="types"
             variant="outlined"
             onChange={(e) => handleChange(e as ChangeEvent<HTMLInputElement>)}
           />
